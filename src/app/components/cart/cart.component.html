@@ -1,0 +1,26 @@
+<div>
+<div class="col-md-4 ">
+<mat-card *ngFor="let cart of carts" >
+   
+    
+    <mat-card-content>
+        <h3>{{cart.name}}</h3>
+        <br>
+        <img mat-card-image  src="{{cart.poster}}"> 
+      <p>
+          
+          <br>
+          {{cart.type}}<br>
+         
+      {{cart.colour}}
+      </p>
+      <br>
+      <p #cost>  {{cart.cost}}<br></p>
+     
+    </mat-card-content>
+   
+  </mat-card>
+  <button class="btn btn-primary" (click)="buy()">Proceed to buy</button>
+</div>
+  
+</div>

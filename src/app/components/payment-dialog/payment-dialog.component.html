@@ -1,0 +1,25 @@
+<h1>Payment Details</h1>
+<mat-dialog-content>
+    
+        <h1>Product Details</h1>
+                
+                    <div *ngFor="let cart of carts">
+            <p>{{cart.name}} ={{cart.cost}}</p>
+                       
+                       </div>
+            
+        
+
+          <p>Total payment:{{sum}}</p>
+      
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="primary" mat-dialog-close (click)="save()">
+      <mat-icon>save</mat-icon>
+  
+    </button>
+    <button mat-button color="danger" mat-dialog-close (click)="cancel()">
+      <mat-icon>cancel</mat-icon>
+  
+    </button>
+  </mat-dialog-actions>

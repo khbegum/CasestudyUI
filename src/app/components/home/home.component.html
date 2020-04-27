@@ -1,0 +1,50 @@
+
+<p>Hi {{users.name}}! Welcome to Music Store</p>
+
+
+<!-- <table border="1">
+    <thead>
+        <tr>
+            <th>Name</th> <th>Type</th> <th>Colour</th> <th>COst</th> <th>Poster</th> <th>Descrition</th><th>Actions</th>
+
+        </tr>
+        
+    </thead>
+    <tbody>
+        <tr *ngFor="let gadget of gadgets">
+            <td>{{gadget.name}}</td> <td>{{gadget.type}}</td><td>{{gadget.colour}}</td> <td>{{gadget.cost}}</td>
+            <td><img src="{{gadget.poster}}" height="100" width="100"  alt="">  </td> <td> {{gadget.description}}</td>
+            <td><button (click)="addCartToService(gadget.name,gadget.type,gadget.colour,gadget.cost,gadget.poster,gadget.description)">Order</button></td>
+        </tr>
+    </tbody>
+</table> -->
+<div class="container">
+    <div class="row">
+      
+  
+  
+  <div *ngFor="let gadget of gadgets">
+      <div class="col-md-4 ">
+          <div class="thumbnail"width="150"height="150">
+    <p ><img src={{gadget.poster}} width="200"height="200" ></p>
+    
+    <p >{{gadget.name|uppercase}}</p>
+    <p >{{gadget.cost|currency:'Rs.'}}</p>
+    <p>{{gadget.type}}</p>
+    <p >{{gadget.colour}}</p>
+    <p >{{gadget.description}}</p>
+    
+  <button (click)="addCartToService(gadget.name,gadget.type,gadget.colour,gadget.cost,gadget.poster,gadget.description)"class="btn btn-primary btn-right">Add to Cart</button>
+  
+  </div>
+  
+  
+  </div>      
+  
+  
+  
+  </div>
+      </div>
+  
+  
+    </div>
