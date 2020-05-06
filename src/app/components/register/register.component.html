@@ -15,8 +15,21 @@
   
       </div>
       <div *ngIf="myForm.controls['email'].hasError('pattern')" class="alert alert-danger">
-          A form with an email field that that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a ".". After the "." sign, add at least 2 letters from a to z:
-      </div>
+        A form with an email field that that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a ".". After the "." sign, add at least 2 letters from a to z:
+    </div>
+
+      <!-- <label for="">Type:</label><input #type formControlName="type" placeholder="whether Employee or Customer" class="form-control"type="text" name="" id="type"><br> -->
+      
+      <mat-label>Type</mat-label>
+      <select #type formControlName="type" class="form-control"matNativeControl>
+        <option value="Employee">Employee</option>
+        <option value="Customer">Customer</option>
+        
+      </select>
+      <div *ngIf="myForm.controls['type'].hasError('required')&& myForm.controls['type'].touched" class="alert alert-danger">
+    Type  Required
+    
+        </div>
       <label for="">Pass Word:</label><input #pass formControlName="password"class="form-control" type="password"#password name="" id="password"><br>
       <div *ngIf="myForm.controls['password'].hasError('required')&& myForm.controls['password'].touched" class="alert alert-danger">
       password required
@@ -30,5 +43,5 @@
                </div>
   </form>  
   </div>
-     <button type="submit" [disabled]="!myForm.valid" (click)="addUserToServices(name.value,emailid.value,pass.value)"class="btn btn-primary">Sign Up</button>
+     <button type="submit" [disabled]="!myForm.valid" (click)="addUserToServices(name.value,emailid.value,type.value,pass.value)"class="btn btn-primary">Sign Up</button>
   </div>

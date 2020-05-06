@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .example-card {
+    float: left;
+    width: 20%;
+    padding: 10px;
+  }
+  
+  /* Clearfix (clear floats) */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

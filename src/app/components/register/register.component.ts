@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit {
       
         this.myForm=this.formBuilder.group({
           name:['',[Validators.required]],
+          type:['',[Validators.required]],
           password:['',[Validators.required,Validators.minLength(8),Validators.maxLength(15)]],
           email:['',[Validators.required,Validators.email,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$")]]
           // mobile:new FormControl('',[Validators.required,Validators.maxLength(10),Validators.minLength(10)]),
@@ -75,9 +76,9 @@ export class RegisterComponent implements OnInit {
   //   })
   // }
 
-  addUserToServices(name,  email, password) {
+  addUserToServices(name,  email,type, password) {
     alert(name)
-    this.registerService.addUser(name,email, password).subscribe((res) => {
+    this.registerService.addUser(name,email,type,password).subscribe((res) => {
             // console.log(HttpErrorResponse.arguments)
            
         alert("successful")

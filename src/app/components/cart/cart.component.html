@@ -1,6 +1,6 @@
 <div>
-<div class="col-md-4 ">
-<mat-card *ngFor="let cart of carts" >
+
+<!-- <mat-card *ngFor="let cart of carts" >
    
     
     <mat-card-content>
@@ -19,8 +19,24 @@
      
     </mat-card-content>
    
-  </mat-card>
-  <button class="btn btn-primary" (click)="buy()">Proceed to buy</button>
+  </mat-card> -->
+  <div class="row">
+    <mat-card class="example-card"*ngFor="let cart of carts" >
+      <img mat-card-image  width="200"height="200" src={{cart.poster}} alt="Photo of product">
+      <mat-card-content>
+        <p ><b>Name</b>:{{cart.name|uppercase}}</p>
+
+        <p><b>Type</b>:{{cart.type}}</p>
+        <p ><b>Colour</b>:{{cart.colour}}</p>
+        <p ><b>Cost</b>:{{cart.cost|currency:'Rs.'}}</p>
+        <p ><b>About</b>:{{cart.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="deleteGadgetFromService(cart)"class="btn btn-danger btn-right">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+ 
 </div>
-  
+<button class="btn btn-primary" (click)="buy()">Proceed to buy</button>
 </div>
+

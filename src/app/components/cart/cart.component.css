@@ -1,6 +1,16 @@
-.example-card {
-    display:flex;
-    flex-direction: column;
-  max-width: 40px;
+* {
+  box-sizing: border-box;
 }
 
+.example-card {
+  float: left;
+  width: 30%;
+  padding: 10px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}

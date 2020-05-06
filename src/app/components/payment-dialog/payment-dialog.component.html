@@ -1,5 +1,5 @@
 <h1>Payment Details</h1>
-<mat-dialog-content>
+<div>
     
         <h1>Product Details</h1>
                 
@@ -12,14 +12,14 @@
 
           <p>Total payment:{{sum}}</p>
       
-</mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button color="primary" mat-dialog-close (click)="save()">
+                      </div>
+<div>
+    <button mat-button color="primary" (click)="save()">
       <mat-icon>save</mat-icon>
   
     </button>
-    <button mat-button color="danger" mat-dialog-close (click)="cancel()">
+    <button mat-button color="danger" (click)="cancel()">
       <mat-icon>cancel</mat-icon>
   
     </button>
-  </mat-dialog-actions>
+  </div>

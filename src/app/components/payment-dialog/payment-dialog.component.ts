@@ -31,6 +31,7 @@ getCartFromService(){
 }
 save(){
   localStorage.setItem('totalPayment',this.sum)
+  
   let dialogref=this.dialog.open(ThankDiaogComponent,{
     width:'450px'
   })

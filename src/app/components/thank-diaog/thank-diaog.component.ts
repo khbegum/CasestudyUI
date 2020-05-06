@@ -14,11 +14,11 @@ export class ThankDiaogComponent implements OnInit {
   ngOnInit() {
   }
 thankyou(){
- 
+
 this.router.navigate(['/'])
 
 this.dialogRef.close();
-window.location.reload();
+
 
 }
 }

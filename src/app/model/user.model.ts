@@ -2,5 +2,6 @@ export class User{
 
 name:String;
 email:String;
-password:String
+type:String;
+password:String;
 }

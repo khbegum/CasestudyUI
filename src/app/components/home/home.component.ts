@@ -13,9 +13,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  count=0;
   users:any={
     name:"",
     email:"",
+    type:"",
     _id:""
   }
   gadgets:Gadget[]=[];
@@ -37,6 +39,7 @@ this.getGadgetsFromService()
     })
   }
   addCartToService(name,type,colour,cost,poster,description){
+    console.log(this.cartService.count)
     if(this.authService.isLoggedIn()){
 this.cartService.addCart(name,type,colour,cost,poster,description).subscribe((response)=>{
   console.log(response)

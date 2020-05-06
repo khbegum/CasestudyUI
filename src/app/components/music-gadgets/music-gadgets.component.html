@@ -56,7 +56,7 @@
             <td>{{gadget.name}}</td> <td>{{gadget.type}}</td><td>{{gadget.colour}}</td> <td>{{gadget.cost}}</td>
             <td><img src="{{gadget.poster}}" height="100" width="100"  alt="">  </td> <td> {{gadget.description}}</td>
             <td  style="text-align: center;"><button class="btn btn-danger"  (click)="deleteGadgetFromService(gadget)">Delete</button></td>
-            <td style="text-align: center;"><button class="btn btn-primary" (click)="goToEditComponent(gadget._id)">Edit</button></td>
+            <td style="text-align: center;"><button class="btn btn-primary" (click)="goToEditComponent(gadget._id)"><mat-icon> border_color</mat-icon></button></td>
         </tr>
     </tbody>
 </table>

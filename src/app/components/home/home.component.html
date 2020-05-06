@@ -1,5 +1,6 @@
 
 <p>Hi {{users.name}}! Welcome to Music Store</p>
+<p>Hi{{users.type}}</p>
 
 
 <!-- <table border="1">
@@ -18,7 +19,7 @@
         </tr>
     </tbody>
 </table> -->
-<div class="container">
+<!-- <div class="container">
     <div class="row">
       
   
@@ -28,23 +29,38 @@
           <div class="thumbnail"width="150"height="150">
     <p ><img src={{gadget.poster}} width="200"height="200" ></p>
     
-    <p >{{gadget.name|uppercase}}</p>
-    <p >{{gadget.cost|currency:'Rs.'}}</p>
-    <p>{{gadget.type}}</p>
-    <p >{{gadget.colour}}</p>
-    <p >{{gadget.description}}</p>
+    <p ><b>Name</b>:{{gadget.name|uppercase}}</p>
+   
+    <p><b>Type</b>:{{gadget.type}}</p>
+    <p ><b>Colour</b>:{{gadget.colour}}</p>
+    <p ><b>Cost</b>:{{gadget.cost|currency:'Rs.'}}</p>
+    <p ><b>About</b>:{{gadget.description}}</p>
     
   <button (click)="addCartToService(gadget.name,gadget.type,gadget.colour,gadget.cost,gadget.poster,gadget.description)"class="btn btn-primary btn-right">Add to Cart</button>
   
   </div>
   
   
-  </div>      
-  
-  
-  
-  </div>
+  </div>       </div>
       </div>
   
   
-    </div>
+    </div> -->
+    <div class="row">
+        <mat-card class="example-card"*ngFor="let gadget of gadgets" >
+          <mat-card-header>
+                     </mat-card-header>
+          <img mat-card-image  width="200"height="200" src={{gadget.poster}} alt="Photo of product">
+          <mat-card-content>
+            <p ><b>Name</b>:{{gadget.name|uppercase}}</p>
+   
+            <p><b>Type</b>:{{gadget.type}}</p>
+            <p ><b>Colour</b>:{{gadget.colour}}</p>
+            <p ><b>Cost</b>:{{gadget.cost|currency:'Rs.'}}</p>
+            <p ><b>About</b>:{{gadget.description}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="addCartToService(gadget.name,gadget.type,gadget.colour,gadget.cost,gadget.poster,gadget.description)"class="btn btn-primary btn-right">Add to Cart</button>
+          </mat-card-actions>
+        </mat-card>
+        </div>
