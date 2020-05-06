@@ -18,7 +18,7 @@ export class AppComponent {
      
   }
   isEmployee(){
-    return this.authService.isEmployee;
+    return this.authService.isEmployee();
   }
   logOut(){
     this.authService.logOutUser();
@@ -33,6 +33,7 @@ export class AppComponent {
   }
   
   ngOnInit(){
+  
   console.log(this.cartService.count)
   this.cartService.getCart().subscribe((data)=>{
     this.count=data.length

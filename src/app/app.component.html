@@ -8,13 +8,13 @@
   <div class="collapse navbar-collapse show" [ngClass]="{ 'show': navbarOpen }"id="navbarSupportedContent" >
     <ul class="navbar-nav navbar-nav-right mr-auto"(click)="toggleNavbar()">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/"><mat-icon>home</mat-icon> <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active" *ngIf="isEmployee()">
         <a class="nav-link" routerLink="/gadgets">Music Gadgets</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/about"><mat-icon>portrait</mat-icon></a>
+        <a class="nav-link" routerLink="/about">AboutUs</a>
       </li>
      
       
@@ -26,7 +26,7 @@
        
       </li>
       <li class="nav-item active" *ngIf="isLoggedIn()">
-        <a class="nav-link">  <mat-icon matBadge="{{count}}" matBadgeColor="warn">money</mat-icon>cash </a>
+        <a class="nav-link">  <mat-icon matBadge="{{cash}}" matBadgeColor="warn">money</mat-icon>cash </a>
       
       </li>
       <li class="nav-item active" *ngIf="isLoggedIn()">

@@ -59,13 +59,14 @@ export class LoginComponent implements OnInit {
         this.authService.isLoggedIn=()=>{
           return true;
         };
-        this.authService.isEmployee=true;
+        localStorage.setItem('Employee',this.result.success);
+        
       }
       else if(this.users.type==this.typeC){
         this.authService.isLoggedIn=()=>{
           return true;
         };
-        this.authService.isEmployee=false;
+        
       }
       else{
         this.authService.isLoggedIn=()=>{
@@ -93,17 +94,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   employee(){
-  this.typeE="Employee"
+  this.typeE="Employee";
+ 
     this.loginFormDisplay=true;
     this.employeeCustomerDisplay=false;
-    this.authService.isEmployee=true;
+    
   }
 
   customer(){
     this.typeC="Customer"
     this.loginFormDisplay=true
     this.employeeCustomerDisplay=false;
-    this.authService.isEmployee=false;
+    
   }
   
 }

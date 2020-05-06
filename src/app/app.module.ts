@@ -23,11 +23,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 import { MaterialModule } from './shared/material.module';
 import { ThankDiaogComponent } from './components/thank-diaog/thank-diaog.component';
+import { EmployeeGuard } from './guards/employee.guard';
 
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
   {path:'about',component:AboutUsComponent},
-  {path:'gadgets',component:MusicGadgetsComponent,canActivate:[AuthGuard]},
+  {path:'gadgets',component:MusicGadgetsComponent,canActivate:[AuthGuard],canActivateChild:[EmployeeGuard]},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'edit/:_id',component:GadgetEditComponent},

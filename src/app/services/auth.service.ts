@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
- currentUser:boolean;
- isEmployee:boolean;
+
+
   serviceUrl: string = "http://localhost:3004/api/auth/";
   constructor(private router: Router, private http: HttpClient) { }
   signInUser(loginInfo: any) {
@@ -32,5 +32,8 @@ export class AuthService {
       return false;
     }
     return true;
+  }
+  isEmployee(){
+return localStorage.getItem('Employee')
   }
 }
