@@ -6,4 +6,5 @@ export class Gadget{
     cost:Number;
     poster:String;
     description:String;
+    productCount:number;
     }

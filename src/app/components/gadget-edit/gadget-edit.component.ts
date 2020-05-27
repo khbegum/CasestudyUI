@@ -18,6 +18,7 @@ gadgets:any={
   cost:"",
   poster:"",
   description:"",
+  productCount:"",
   _id:"",
 }
 //gadgets:Gadget[]=[];

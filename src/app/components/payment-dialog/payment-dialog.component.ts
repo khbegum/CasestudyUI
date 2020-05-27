@@ -35,11 +35,19 @@ save(){
   let dialogref=this.dialog.open(ThankDiaogComponent,{
     width:'450px'
   })
+   for(let i=0;i<this.carts.length;i++){
+    this.cartService.deleteGadgetFromCart(this.carts[i]).subscribe((res)=>{
+      
+    })
+  }
+
   
   dialogref.afterClosed().subscribe((result)=>{
   
     console.log("dialog was closed",result)
+    
   })
+ 
 }
 cancel(){
   this.router.navigate(['/'])

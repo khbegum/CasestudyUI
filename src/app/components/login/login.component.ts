@@ -42,8 +42,7 @@ export class LoginComponent implements OnInit {
       
       alert('login Successful')
       
-      
-      console.log("Token:" + this.result.token);
+      alert("Token:" + this.result.token);
      
       if ((this.result.success == true)){
         localStorage.setItem('token', this.result.token);

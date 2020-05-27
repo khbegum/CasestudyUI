@@ -25,7 +25,7 @@ export class MusicGadgetsComponent implements OnInit {
       cost: ['', [Validators.required]],
       poster: ['', [Validators.required]],
       description: ['', [Validators.required]],
-
+      productCount: ['', [Validators.required]],
 
       // mobile:new FormControl('',[Validators.required,Validators.maxLength(10),Validators.minLength(10)]),
     })
@@ -41,9 +41,10 @@ export class MusicGadgetsComponent implements OnInit {
       console.log(this.gadgets)
     })
   }
-  addGadgetToServices(name, type, colour, cost, poster, description) {
-    this.gadgetService.addGadget(name, type, colour, cost, poster, description).subscribe((response) => {
+  addGadgetToServices(name, type, colour, cost, poster, description,productCount) {
+    this.gadgetService.addGadget(name, type, colour, cost, poster, description,productCount).subscribe((response) => {
       alert('Gadget is added');
+      alert(productCount)
       //this.getGadgetsFromService();
       this.router.navigate([''])
 

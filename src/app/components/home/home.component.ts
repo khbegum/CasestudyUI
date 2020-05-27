@@ -14,6 +14,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
   count=0;
+  gadget:any={
+  
+    name:"",
+    type:"",
+    colour:"",
+    cost:"",
+    poster:"",
+    description:"",
+    productCount:"",
+    _id:"",
+  }
+  result:any;
+  x:any;
   users:any={
     name:"",
     email:"",
@@ -21,6 +34,7 @@ export class HomeComponent implements OnInit {
     _id:""
   }
   gadgets:Gadget[]=[];
+  
   constructor(private router:Router,private authService:AuthService,private registerService:RegisterService ,private activatedRoute:ActivatedRoute,private gadgetService:GadgetService,private cartService:CartService) { }
 
   ngOnInit() {
@@ -30,6 +44,7 @@ export class HomeComponent implements OnInit {
       console.log(response);
       this.users=response;
     })
+    
 this.getGadgetsFromService()
   }
   getGadgetsFromService(){
@@ -39,10 +54,19 @@ this.getGadgetsFromService()
     })
   }
   addCartToService(name,type,colour,cost,poster,description){
-    console.log(this.cartService.count)
+    
+    
     if(this.authService.isLoggedIn()){
 this.cartService.addCart(name,type,colour,cost,poster,description).subscribe((response)=>{
-  console.log(response)
+this.result=response;
+this.gadgetService.getGadgetById(this.result._id).subscribe((response)=>{
+  console.log(response);
+  this.gadget=response;
+})
+this.gadgetService.updateGadgetById(this.result._id,this.gadget.productCount-1).subscribe((response)=>{
+  
+})
+  console.log(this.result._id)
 })}
 else{
 this.router.navigate(['/login'])

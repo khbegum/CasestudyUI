@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GadgetService {
   gadgets:Gadget[]=[];
+  productCount:any;
 serviceUrl:string="http://localhost:3004/api/gadgets/"
   constructor(private http:HttpClient) { }
   getGadgets():Observable<Gadget[]>{
@@ -19,9 +20,9 @@ serviceUrl:string="http://localhost:3004/api/gadgets/"
     return this.http.put(this.serviceUrl+id,newGadget);
 
   }
-  addGadget(name,type,colour,cost,poster,description){
+  addGadget(name,type,colour,cost,poster,description,productCount){
 alert(name);
-let newGadget={name:name,type:type,colour:colour,cost:cost,poster:poster,description:description}
+let newGadget={name:name,type:type,colour:colour,cost:cost,poster:poster,description:description,productCount:productCount}
 return this.http.post(this.serviceUrl,newGadget);
   }
   deleteGadget(gadget){

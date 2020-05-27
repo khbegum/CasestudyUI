@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Cart } from '../model/cart.model';
+import { Gadget } from '../model/gadget.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 cart:Cart[]=[];
+
 count:number;
    constructor(private http:HttpClient){}
   serviceUrl:string="http://localhost:3004/api/cart/";
@@ -22,8 +24,7 @@ count:number;
     
   }
   
-  deleteGadgetFromCart(cart){
-    alert(cart._id);
+  deleteGadgetFromCart(cart){    
     return this.http.delete(this.serviceUrl+cart._id);
       }
   

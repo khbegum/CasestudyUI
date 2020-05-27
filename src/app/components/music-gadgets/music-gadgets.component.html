@@ -35,18 +35,23 @@
       Description  required
     
         </div>
+        <label for="">Product count:</label><input   placeholder=" Product count" formControlName="productCount"class="form-control" #productCount name="" id="productCount"><br>
+        <div *ngIf="myForm.controls['productCount'].hasError('required')&& myForm.controls['productCount'].touched" class="alert alert-danger">
+        Product count   required
+      
+          </div>
         
         
   </form>  
   </div>
-     <button type="submit" [disabled]="!myForm.valid" (click)="addGadgetToServices(name.value,type.value,colour.value,cost.value,poster.value,description.value)"class="btn btn-primary">Add</button>
+     <button type="submit" [disabled]="!myForm.valid" (click)="addGadgetToServices(name.value,type.value,colour.value,cost.value,poster.value,description.value,productCount.value)"class="btn btn-primary">Add</button>
 </div>
 <br>
 <div class="col-md-10">
 <table border="1">
     <thead>
         <tr>
-            <th>Name</th> <th>Type</th> <th>Colour</th> <th>Cost</th> <th>Poster</th> <th style="width: 33%;">Descrition</th> <th>Product Delete</th><th>Product Edit</th>
+            <th>Name</th> <th>Type</th> <th>Colour</th> <th>Cost</th> <th>Poster</th> <th style="width: 33%;">Descrition</th><th>Product count</th> <th>Product Delete</th><th>Product Edit</th>
 
         </tr>
         
@@ -54,7 +59,7 @@
     <tbody>
         <tr *ngFor="let gadget of gadgets">
             <td>{{gadget.name}}</td> <td>{{gadget.type}}</td><td>{{gadget.colour}}</td> <td>{{gadget.cost}}</td>
-            <td><img src="{{gadget.poster}}" height="100" width="100"  alt="">  </td> <td> {{gadget.description}}</td>
+            <td><img src="{{gadget.poster}}" height="100" width="100"  alt="">  </td> <td> {{gadget.description}}</td><td>{{gadget.productCount}}</td>
             <td  style="text-align: center;"><button class="btn btn-danger"  (click)="deleteGadgetFromService(gadget)">Delete</button></td>
             <td style="text-align: center;"><button class="btn btn-primary" (click)="goToEditComponent(gadget._id)"><mat-icon> border_color</mat-icon></button></td>
         </tr>

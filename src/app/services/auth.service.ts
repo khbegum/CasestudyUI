@@ -25,7 +25,7 @@ export class AuthService {
       localStorage.removeItem('token');
       window.localStorage.clear();
      
-      this.router.navigate(['/register'])
+      this.router.navigate(['/login'])
   }
   isLoggedIn() {
     if (localStorage.getItem('token')==null) {
