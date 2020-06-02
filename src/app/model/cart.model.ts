@@ -6,4 +6,5 @@ export class Cart{
     cost:number;
     poster:String;
     description:String;
+    productCount:number
     }

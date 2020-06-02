@@ -13,7 +13,17 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  count=0;
+
+ 
+ 
+  result:any;
+  
+  users:any={
+    name:"",
+    email:"",
+    type:"",
+    _id:""
+  }
   gadget:any={
   
     name:"",
@@ -24,14 +34,6 @@ export class HomeComponent implements OnInit {
     description:"",
     productCount:"",
     _id:"",
-  }
-  result:any;
-  x:any;
-  users:any={
-    name:"",
-    email:"",
-    type:"",
-    _id:""
   }
   gadgets:Gadget[]=[];
   
@@ -46,32 +48,31 @@ export class HomeComponent implements OnInit {
     })
     
 this.getGadgetsFromService()
+
   }
-  getGadgetsFromService(){
-    this.gadgetService.getGadgets().subscribe((response)=>{
-      this.gadgets=response;
-      console.log(this.gadgets)
-    })
-  }
-  addCartToService(name,type,colour,cost,poster,description){
-    
+  
+  addCartToService(_id,name,type,colour,cost,poster,description,productCount){
     
     if(this.authService.isLoggedIn()){
-this.cartService.addCart(name,type,colour,cost,poster,description).subscribe((response)=>{
+      
+this.cartService.addCart(_id,name,type,colour,cost,poster,description,productCount).subscribe((response)=>{
 this.result=response;
-this.gadgetService.getGadgetById(this.result._id).subscribe((response)=>{
-  console.log(response);
-  this.gadget=response;
-})
-this.gadgetService.updateGadgetById(this.result._id,this.gadget.productCount-1).subscribe((response)=>{
   
 })
-  console.log(this.result._id)
-})}
+this.gadgetService.getGadgetById(_id).subscribe((res)=>{
+this.gadget=res;
+})
+}
 else{
 this.router.navigate(['/login'])
 }
   }
+
+  getGadgetsFromService(){
+this.gadgetService.getGadgets().subscribe((response)=>{
+  this.gadgets=response;
+})
+  }
   
-  //username = this.registerService.getUsername();
+  
 }

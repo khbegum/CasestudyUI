@@ -14,18 +14,24 @@ cart:Cart[]=[];
 count:number;
    constructor(private http:HttpClient){}
   serviceUrl:string="http://localhost:3004/api/cart/";
-  addCart(name,type,colour,cost,poster,description){
+  addCart(_id,name,type,colour,cost,poster,description,productCount){
   
-      let newCart={name:name,type:type,colour:colour,cost:cost,poster:poster,description:description};
+      let newCart={_id:_id,name:name,type:type,colour:colour,cost:cost,poster:poster,description:description,productCount:productCount};
       return this.http.post(this.serviceUrl,newCart);
   }
   getCart():Observable<Cart[]>{
     return this.http.get<Cart[]>(this.serviceUrl);
     
   }
-  
+  getGadgetById(_id):Observable<Cart[]>{
+    return this.http.get<Cart[]>(this.serviceUrl+_id);
+  }
   deleteGadgetFromCart(cart){    
     return this.http.delete(this.serviceUrl+cart._id);
+      }
+      updateGadgetById(id,newCart){
+        return this.http.put(this.serviceUrl+id,newCart);
+    
       }
   
 }

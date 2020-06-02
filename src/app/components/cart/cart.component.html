@@ -1,38 +1,31 @@
+
+
+<div style="text-align: center;" *ngIf="!(count>0)">
+  <h1 class="display-4">Sorry !</h1>
+  <p class="lead">You have no products in your cart</p>
+  
+</div>
+
+
 <div>
 
-<!-- <mat-card *ngFor="let cart of carts" >
-   
-    
-    <mat-card-content>
-        <h3>{{cart.name}}</h3>
-        <br>
-        <img mat-card-image  src="{{cart.poster}}"> 
-      <p>
-          
-          <br>
-          {{cart.type}}<br>
-         
-      {{cart.colour}}
-      </p>
-      <br>
-      <p #cost>  {{cart.cost}}<br></p>
-     
-    </mat-card-content>
-   
-  </mat-card> -->
+
   <div class="row">
-    <mat-card class="example-card"*ngFor="let cart of carts" >
+    <mat-card class="example-card"*ngFor="let cart of carts ; i as index" >
       <img mat-card-image  width="200"height="200" src={{cart.poster}} alt="Photo of product">
       <mat-card-content>
-        <p ><b>Name</b>:{{cart.name|uppercase}}</p>
+        <p  ><b>Name</b>:{{cart.name|uppercase}}</p>
 
-        <p><b>Type</b>:{{cart.type}}</p>
+        <p ><b>Type</b>:{{cart.type}}</p>
         <p ><b>Colour</b>:{{cart.colour}}</p>
         <p ><b>Cost</b>:{{cart.cost|currency:'Rs.'}}</p>
         <p ><b>About</b>:{{cart.description}}</p>
+        {{cart.index}}
+        
+        <p ><b>No.of Products</b>:<span *ngIf="!enable">{{cart.productCount}}</span><span *ngIf="(key==cart._id)&&enable"><input size="1" [(ngModel)]="cartEdit.productCount"  #count /><button mat-button color="primary" (click)="save()"><mat-icon>save</mat-icon></button><button (click)="cancel()" color="danger" mat-button><mat-icon>cancel</mat-icon></button> </span><button mat-button class="btn btn-primary" *ngIf="!enable" (click)="editProductCount(cart._id)">Edit<mat-icon> border_color</mat-icon></button></p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button (click)="deleteGadgetFromService(cart)"class="btn btn-danger btn-right">Delete</button>
+        <button mat-button (click)="deleteGadgetFromCart(cart)"class="btn btn-danger btn-right">Delete</button>
       </mat-card-actions>
     </mat-card>
  

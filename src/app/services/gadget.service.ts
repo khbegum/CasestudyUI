@@ -17,6 +17,7 @@ serviceUrl:string="http://localhost:3004/api/gadgets/"
     return this.http.get<Gadget[]>(this.serviceUrl+_id);
   }
   updateGadgetById(id,newGadget){
+    console.log(newGadget)
     return this.http.put(this.serviceUrl+id,newGadget);
 
   }

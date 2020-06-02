@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
   // }
 
   addUserToServices(name,  email,type, password) {
-    alert(name)
+    // alert(name)
     this.registerService.addUser(name,email,type,password).subscribe((res) => {
             // console.log(HttpErrorResponse.arguments)
            

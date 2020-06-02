@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { RegisterService } from 'src/app/services/register.service';
 import { User } from 'src/app/model/user.model';
+import { AlertService } from 'src/app/shared/alert/alert.service';
+import { timeout } from 'rxjs/operators';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class LoginComponent implements OnInit {
   //   type:"",
   //   _id:""
   // }
+  alertDisplay:any;
+  options:any;
   users:User;
   loginFormDisplay=false;
   employeeCustomerDisplay=true;
@@ -30,7 +34,7 @@ export class LoginComponent implements OnInit {
   result: any;
   errorMessage: string = "";
    
-  constructor(private authService: AuthService,private router:Router,private registerService:RegisterService) {
+  constructor(private authService: AuthService,private router:Router,private registerService:RegisterService,private alertService:AlertService) {
     
    }
   signIn() {
@@ -39,15 +43,19 @@ export class LoginComponent implements OnInit {
      
       console.log(response);
       this.result = response;
+      this.options = {
+        autoClose: false,
+        keepAfterRouteChange: false
+    };
+    alert('success')
+      this.alertService.success('Success!!', this.options)
       
-      alert('login Successful')
-      
-      alert("Token:" + this.result.token);
+      // alert("Token:" + this.result.token);
      
       if ((this.result.success == true)){
         localStorage.setItem('token', this.result.token);
         localStorage.setItem('_id',this.result._id);
-        this.router.navigate(['/']);
+        this.router.navigate(['/'])
         
           let id=localStorage.getItem('_id')
    

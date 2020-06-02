@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
+import { Cart } from './model/cart.model';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { CartService } from './services/cart.service';
 export class AppComponent {
  
   title = 'music-store-app';
-  count:number;
+  count:number=0;
+  carts:Cart[]=[]
   coins:any=0;
   payment:any;
   cash:any=0;
@@ -34,10 +36,13 @@ export class AppComponent {
   
   ngOnInit(){
   
-  console.log(this.cartService.count)
+  
   this.cartService.getCart().subscribe((data)=>{
-    this.count=data.length
-    console.log(this.count)
+    this.carts=data
+    for (let i = 0; i < this.carts.length; i++) {
+      this.count=this.count+this.carts[i].productCount;
+      
+    }
   })
     this.coins;
     this.cash;

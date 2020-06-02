@@ -44,14 +44,14 @@ export class MusicGadgetsComponent implements OnInit {
   addGadgetToServices(name, type, colour, cost, poster, description,productCount) {
     this.gadgetService.addGadget(name, type, colour, cost, poster, description,productCount).subscribe((response) => {
       alert('Gadget is added');
-      alert(productCount)
+      
       //this.getGadgetsFromService();
       this.router.navigate([''])
 
     })
   }
   deleteGadgetFromService(gadget){
-alert(gadget._id);
+// alert(gadget._id);
 this.gadgetService.deleteGadget(gadget).subscribe((response)=>{
   alert('Data Deleted');
   this.getGadgetsFromService();

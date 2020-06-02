@@ -24,6 +24,7 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
 import { MaterialModule } from './shared/material.module';
 import { ThankDiaogComponent } from './components/thank-diaog/thank-diaog.component';
 import { EmployeeGuard } from './guards/employee.guard';
+import { AlertModule } from './shared/alert.module';
 
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
@@ -33,7 +34,8 @@ const appRoutes:Routes=[
   {path:'register',component:RegisterComponent},
   {path:'edit/:_id',component:GadgetEditComponent},
   {path:'payment',component:PaymentDialogComponent},
-  {path:'cart',component:CartComponent}
+  {path:'cart',component:CartComponent},
+  {path:'cart/:_id',component:CartComponent},
 ]
 @NgModule({
   declarations: [
@@ -50,7 +52,7 @@ const appRoutes:Routes=[
   ],
   entryComponents:[PaymentDialogComponent,ThankDiaogComponent],
   imports: [
-    MaterialModule,
+    MaterialModule,AlertModule,
     BrowserModule,
     AppRoutingModule,RouterModule.forRoot(appRoutes),FormsModule,HttpClientModule,ReactiveFormsModule,MatCardModule,MatDialogModule, BrowserAnimationsModule
   ],

@@ -4,7 +4,8 @@ import { Gadget } from 'src/app/model/gadget.model';
 import { Cart } from 'src/app/model/cart.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { GadgetService } from 'src/app/services/gadget.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,41 +14,94 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 carts:Cart[]=[];
- sum=0; 
-  constructor( private cartService:CartService,private router:Router) { }
+key:any;
+cartEdit:any={
+  
+  name:"",
+  type:"",
+  colour:"",
+  cost:"",
+  poster:"",
+  description:"",
+  productCount:"",
+  _id:"",
+}
+gadget:any={
+  
+  name:"",
+  type:"",
+  colour:"",
+  cost:"",
+  poster:"",
+  description:"",
+  productCount:"",
+  _id:"",
+}
+ count=0;
+ enable:boolean=false;
+  constructor( private cartService:CartService,private gadgetService:GadgetService,private router:Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
     this.getCartFromSerive();
-    this.cartService.count=this.carts.length;
-    console.log(this.cartService.count)
+
+   
   }
   getCartFromSerive(){
     this.cartService.getCart().subscribe((response)=>{
       this.carts=response
-      //console.log(this.carts.length)
+     this.count=this.carts.length;
       
     })
   }
-  deleteGadgetFromService(gadget){
-    alert(gadget._id);
-    
-    this.cartService.deleteGadgetFromCart(gadget).subscribe((response)=>{
-      alert('Data Deleted');
+  deleteGadgetFromCart(gadget){
+    this.cartService.deleteGadgetFromCart(gadget).subscribe((result)=>{
+      alert('deleted');
       this.getCartFromSerive();
     })
-      }
+  }
+  
 
 
 buy(){
 this.router.navigate(['/payment'])
-  // let dialogref=this.dialog.open(PaymentDialogComponent,{
-  //   width:'450px'
-  // })
-  // dialogref.afterClosed().subscribe((result)=>{
-  
-  //   console.log("dialog was closed",result)
-  // })
+
     }
-  
+    editProductCount(id){
+      this.key=id;
+      this.cartService.getGadgetById(id).subscribe((response)=>{
+        console.log(response);
+        this.cartEdit=response;
+   
+        
+      })
+      this.gadgetService.getGadgetById(id).subscribe((res)=>{
+        this.gadget=res;
+        
+          
+        
+        })
+       if(id){
+          this.enable=true;
+        
+       }
+     
+    }
+  save(){
+    if(this.gadget.productCount >= this.cartEdit.productCount){
+    this.cartService.updateGadgetById(this.cartEdit._id,this.cartEdit).subscribe((response)=>{
+      this.enable=false;
+      this.getCartFromSerive()
+      this.router.navigate(['/cart'])
+
+    })}
+    else{
+      alert('products are out of stock');
+      this.enable=false;
+    }
+  }
+  cancel(){
+    this.enable=false;
+  }
 
 }
+
