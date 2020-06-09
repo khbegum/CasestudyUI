@@ -5,7 +5,9 @@
   <button  mat-raised-button color="accent"  (click)="customer()">Customer</button>
   
 </form>
-
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{errorMessage}}
+</div>
 
 <form #newUserForm="ngForm" *ngIf="loginFormDisplay">      
         <input type="email" id="email" placeholder="Email"

@@ -153,7 +153,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\r\n\r\n<form *ngIf=\"employeeCustomerDisplay\" class=\"text-center\">\r\n  <button  mat-raised-button color=\"primary\"  (click)=\"employee()\">Employee</button>\r\n  <button  mat-raised-button color=\"accent\"  (click)=\"customer()\">Customer</button>\r\n  \r\n</form>\r\n\r\n\r\n<form #newUserForm=\"ngForm\" *ngIf=\"loginFormDisplay\">      \r\n        <input type=\"email\" id=\"email\" placeholder=\"Email\"\r\n               required [(ngModel)]=\"loginObject.email\"\r\n               name=\"email\" #userEmail=\"ngModel\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$\">\r\n        <div *ngIf=\"!userEmail.valid && userEmail.touched\">\r\n        <div class=\"alert alert-danger\">\r\n          <p>Email is required!</p>\r\n          <p>A form with an email field that that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a \".\". After the \".\" sign, add at least 2 letters from a to z:</p>\r\n        </div></div>            \r\n        <input type=\"password\" id=\"password\" placeholder=\"Password\" required\r\n               [(ngModel)]=\"loginObject.password\" name=\"password\"\r\n               #userPassword=\"ngModel\">\r\n        <div *ngIf=\"!userPassword.valid && userPassword.touched\" class=\"alert alert-danger\">\r\n          Password is required!\r\n        </div>\r\n        \r\n      \r\n      \r\n        <button (click)=\"signIn()\" class=\"btn btn-success m-1\"  [disabled]=\"!newUserForm.form.valid\">\r\n          Login\r\n        </button>\r\n      \r\n        \r\n      \r\n      </form>\r\n      ";
+    __webpack_exports__["default"] = "\r\n\r\n<form *ngIf=\"employeeCustomerDisplay\" class=\"text-center\">\r\n  <button  mat-raised-button color=\"primary\"  (click)=\"employee()\">Employee</button>\r\n  <button  mat-raised-button color=\"accent\"  (click)=\"customer()\">Customer</button>\r\n  \r\n</form>\r\n<div *ngIf=\"errorMessage\" class=\"alert alert-danger\">\r\n  {{errorMessage}}\r\n</div>\r\n\r\n<form #newUserForm=\"ngForm\" *ngIf=\"loginFormDisplay\">      \r\n        <input type=\"email\" id=\"email\" placeholder=\"Email\"\r\n               required [(ngModel)]=\"loginObject.email\"\r\n               name=\"email\" #userEmail=\"ngModel\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$\">\r\n        <div *ngIf=\"!userEmail.valid && userEmail.touched\">\r\n        <div class=\"alert alert-danger\">\r\n          <p>Email is required!</p>\r\n          <p>A form with an email field that that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a \".\". After the \".\" sign, add at least 2 letters from a to z:</p>\r\n        </div></div>            \r\n        <input type=\"password\" id=\"password\" placeholder=\"Password\" required\r\n               [(ngModel)]=\"loginObject.password\" name=\"password\"\r\n               #userPassword=\"ngModel\">\r\n        <div *ngIf=\"!userPassword.valid && userPassword.touched\" class=\"alert alert-danger\">\r\n          Password is required!\r\n        </div>\r\n        \r\n      \r\n      \r\n        <button (click)=\"signIn()\" class=\"btn btn-success m-1\"  [disabled]=\"!newUserForm.form.valid\">\r\n          Login\r\n        </button>\r\n      \r\n        \r\n      \r\n      </form>\r\n      ";
     /***/
   },
 
@@ -964,13 +964,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _services_cart_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ./services/cart.service */
     "./src/app/services/cart.service.ts");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
 
     var AppComponent = /*#__PURE__*/function () {
-      function AppComponent(authService, cartService) {
+      function AppComponent(authService, cartService, router) {
         _classCallCheck(this, AppComponent);
 
         this.authService = authService;
         this.cartService = cartService;
+        this.router = router;
         this.title = 'music-store-app';
         this.count = 0;
         this.carts = [];
@@ -987,7 +994,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "logOut",
         value: function logOut() {
-          this.authService.logOutUser();
+          sessionStorage.removeItem('token');
+
+          this.authService.isLoggedIn = function () {
+            return false;
+          };
+
+          this.router.navigate(['/login']);
         }
       }, {
         key: "isLoggedIn",
@@ -1034,6 +1047,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]
       }, {
         type: _services_cart_service__WEBPACK_IMPORTED_MODULE_3__["CartService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
       }];
     };
 
@@ -1230,6 +1245,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _shared_alert_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
     /*! ./shared/alert.module */
     "./src/app/shared/alert.module.ts");
+    /* harmony import */
+
+
+    var _services_interceptor_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+    /*! ./services/interceptor.service */
+    "./src/app/services/interceptor.service.ts");
 
     var appRoutes = [{
       path: '',
@@ -1270,7 +1291,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _components_home_home_component__WEBPACK_IMPORTED_MODULE_7__["HomeComponent"], _components_music_gadgets_music_gadgets_component__WEBPACK_IMPORTED_MODULE_8__["MusicGadgetsComponent"], _components_about_us_about_us_component__WEBPACK_IMPORTED_MODULE_9__["AboutUsComponent"], _components_login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"], _components_register_register_component__WEBPACK_IMPORTED_MODULE_11__["RegisterComponent"], _components_gadget_edit_gadget_edit_component__WEBPACK_IMPORTED_MODULE_17__["GadgetEditComponent"], _components_cart_cart_component__WEBPACK_IMPORTED_MODULE_18__["CartComponent"], _components_payment_dialog_payment_dialog_component__WEBPACK_IMPORTED_MODULE_22__["PaymentDialogComponent"], _components_thank_diaog_thank_diaog_component__WEBPACK_IMPORTED_MODULE_24__["ThankDiaogComponent"]],
       entryComponents: [_components_payment_dialog_payment_dialog_component__WEBPACK_IMPORTED_MODULE_22__["PaymentDialogComponent"], _components_thank_diaog_thank_diaog_component__WEBPACK_IMPORTED_MODULE_24__["ThankDiaogComponent"]],
       imports: [_shared_material_module__WEBPACK_IMPORTED_MODULE_23__["MaterialModule"], _shared_alert_module__WEBPACK_IMPORTED_MODULE_26__["AlertModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(appRoutes), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_19__["MatCardModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_20__["MatDialogModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__["BrowserAnimationsModule"]],
-      providers: [_app_services_register_service__WEBPACK_IMPORTED_MODULE_14__["RegisterService"], _app_services_auth_service__WEBPACK_IMPORTED_MODULE_13__["AuthService"], _services_gadget_service__WEBPACK_IMPORTED_MODULE_16__["GadgetService"]],
+      providers: [_app_services_register_service__WEBPACK_IMPORTED_MODULE_14__["RegisterService"], _app_services_auth_service__WEBPACK_IMPORTED_MODULE_13__["AuthService"], _services_gadget_service__WEBPACK_IMPORTED_MODULE_16__["GadgetService"], {
+        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
+        useClass: _services_interceptor_service__WEBPACK_IMPORTED_MODULE_27__["InterceptorService"],
+        multi: true
+      }],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
     })], AppModule);
     /***/
@@ -1965,7 +1990,53 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           password: ''
         };
         this.errorMessage = "";
-      }
+      } // signIn() {
+      //   this.authService.signInUser(this.loginObject).subscribe((response) => {
+      //     console.log(response);
+      //     this.result = response;
+      //   this.options = {
+      //     autoClose: false,
+      //     keepAfterRouteChange: false
+      // };
+      //   alert('success')
+      // this.alertService.success('Success!!', this.options)
+      // alert("Token:" + this.result.token);
+      // if (this.result.success == true){
+      //   localStorage.setItem('token', this.result.token);
+      //   localStorage.setItem('_id',this.result._id);
+      //   this.router.navigate(['/'])
+      //     let id=localStorage.getItem('_id')
+      // this.registerService.getUserById(id).subscribe((response)=>{
+      // console.log(response);
+      // this.users=response;
+      // if(this.users.type==this.typeE){
+      //   this.authService.isLoggedIn=()=>{
+      //     return true;
+      //   };
+      //   localStorage.setItem('Employee',this.result.success);
+      // }
+      // else if(this.users.type==this.typeC){
+      //   this.authService.isLoggedIn=()=>{
+      //     return true;
+      //   };
+      // }
+      // else{
+      //   this.authService.isLoggedIn=()=>{
+      //     return false;
+      //   };
+      //   alert("you might be Customer please select correct option")
+      //   this.router.navigate(['/login'])
+      // }
+      // })
+      // }
+      //     else {
+      //        //this.errorMessage = "invalid username or password";
+      //        alert('Incorrect email or password')
+      //       this.router.navigate(['/login']);
+      //     }
+      //   })
+      // }
+
 
       _createClass(LoginComponent, [{
         key: "signIn",
@@ -1973,27 +2044,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this11 = this;
 
           this.authService.signInUser(this.loginObject).subscribe(function (response) {
-            console.log(response);
             _this11.result = response;
-            _this11.options = {
-              autoClose: false,
-              keepAfterRouteChange: false
-            };
-            alert('success');
-
-            _this11.alertService.success('Success!!', _this11.options); // alert("Token:" + this.result.token);
-
+            console.log(_this11.result);
 
             if (_this11.result.success == true) {
-              localStorage.setItem('token', _this11.result.token);
-              localStorage.setItem('_id', _this11.result._id);
+              sessionStorage.setItem('token', _this11.result.token);
+              sessionStorage.setItem('_id', _this11.result._id);
 
               _this11.router.navigate(['/']);
 
-              var id = localStorage.getItem('_id');
+              var id = sessionStorage.getItem('_id');
 
               _this11.registerService.getUserById(id).subscribe(function (response) {
-                // console.log(response);
+                console.log(response);
                 _this11.users = response;
 
                 if (_this11.users.type == _this11.typeE) {
@@ -2001,24 +2064,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return true;
                   };
 
-                  localStorage.setItem('Employee', _this11.result.success);
+                  sessionStorage.setItem('Employee', _this11.result.success);
                 } else if (_this11.users.type == _this11.typeC) {
                   _this11.authService.isLoggedIn = function () {
                     return true;
                   };
                 } else {
+                  sessionStorage.removeItem('token');
+                  alert("you might be Customer please select correct option");
+
                   _this11.authService.isLoggedIn = function () {
                     return false;
                   };
-
-                  alert("you might be Customer please select correct option");
 
                   _this11.router.navigate(['/login']);
                 }
               });
             } else {
-              _this11.errorMessage = "invalid username or password";
-              alert('Incorrect email or password');
+              _this11.errorMessage = _this11.result.message; //alert('fail')
 
               _this11.router.navigate(['/login']);
             }
@@ -2894,7 +2957,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.router = router;
         this.http = http;
-        this.serviceUrl = "http://100.26.177.240:3004/api/auth/";
+        this.serviceUrl = "http://localhost:3004/api/auth/";
       }
 
       _createClass(AuthService, [{
@@ -2905,19 +2968,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loggedIn",
         value: function loggedIn() {
-          return !!localStorage.getItem('token');
-        }
-      }, {
-        key: "logOutUser",
-        value: function logOutUser() {
-          localStorage.removeItem('token');
-          window.localStorage.clear();
-          this.router.navigate(['/login']);
+          return !!sessionStorage.getItem('token');
         }
       }, {
         key: "isLoggedIn",
         value: function isLoggedIn() {
-          if (localStorage.getItem('token') == null) {
+          if (sessionStorage.getItem('token') == null) {
             return false;
           }
 
@@ -2926,7 +2982,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "isEmployee",
         value: function isEmployee() {
-          return localStorage.getItem('Employee');
+          return sessionStorage.getItem('Employee');
         }
       }]);
 
@@ -2991,7 +3047,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.http = http;
         this.cart = [];
-        this.serviceUrl = "http://100.26.177.240:3004/api/cart/";
+        this.serviceUrl = "http://localhost:3004/api/cart/";
       }
 
       _createClass(CartService, [{
@@ -3090,7 +3146,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.http = http;
         this.gadgets = [];
-        this.serviceUrl = "http://100.26.177.240:3004/api/gadgets/";
+        this.serviceUrl = "http://localhost:3004/api/gadgets/";
       }
 
       _createClass(GadgetService, [{
@@ -3148,6 +3204,78 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/services/interceptor.service.ts":
+  /*!*************************************************!*\
+    !*** ./src/app/services/interceptor.service.ts ***!
+    \*************************************************/
+
+  /*! exports provided: InterceptorService */
+
+  /***/
+  function srcAppServicesInterceptorServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "InterceptorService", function () {
+      return InterceptorService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
+
+    var InterceptorService = /*#__PURE__*/function () {
+      function InterceptorService() {
+        _classCallCheck(this, InterceptorService);
+      }
+
+      _createClass(InterceptorService, [{
+        key: "handleError",
+        value: function handleError(error) {
+          var result = error.error;
+          alert(result.message);
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+        }
+      }, {
+        key: "intercept",
+        value: function intercept(req, next) {
+          return next.handle(req).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+        }
+      }]);
+
+      return InterceptorService;
+    }();
+
+    InterceptorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    })], InterceptorService);
+    /***/
+  },
+
+  /***/
   "./src/app/services/register.service.ts":
   /*!**********************************************!*\
     !*** ./src/app/services/register.service.ts ***!
@@ -3190,7 +3318,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, RegisterService);
 
         this.http = http;
-        this.serviceUrl = "http://100.26.177.240:3004/api/users/";
+        this.serviceUrl = "http://localhost:3004/api/users/";
       }
 
       _createClass(RegisterService, [{

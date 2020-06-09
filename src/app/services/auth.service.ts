@@ -17,23 +17,17 @@ export class AuthService {
   }
   loggedIn() {
     
-      return !!localStorage.getItem('token');
+      return !!sessionStorage.getItem('token');
   }
 
-  logOutUser() {
-   
-      localStorage.removeItem('token');
-      window.localStorage.clear();
-     
-      this.router.navigate(['/login'])
-  }
+  
   isLoggedIn() {
-    if (localStorage.getItem('token')==null) {
+    if (sessionStorage.getItem('token')==null) {
       return false;
     }
     return true;
   }
   isEmployee(){
-return localStorage.getItem('Employee')
+return sessionStorage.getItem('Employee')
   }
 }

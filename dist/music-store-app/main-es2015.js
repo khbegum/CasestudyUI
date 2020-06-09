@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\r\n\r\n<form *ngIf=\"employeeCustomerDisplay\" class=\"text-center\">\r\n  <button  mat-raised-button color=\"primary\"  (click)=\"employee()\">Employee</button>\r\n  <button  mat-raised-button color=\"accent\"  (click)=\"customer()\">Customer</button>\r\n  \r\n</form>\r\n\r\n\r\n<form #newUserForm=\"ngForm\" *ngIf=\"loginFormDisplay\">      \r\n        <input type=\"email\" id=\"email\" placeholder=\"Email\"\r\n               required [(ngModel)]=\"loginObject.email\"\r\n               name=\"email\" #userEmail=\"ngModel\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$\">\r\n        <div *ngIf=\"!userEmail.valid && userEmail.touched\">\r\n        <div class=\"alert alert-danger\">\r\n          <p>Email is required!</p>\r\n          <p>A form with an email field that that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a \".\". After the \".\" sign, add at least 2 letters from a to z:</p>\r\n        </div></div>            \r\n        <input type=\"password\" id=\"password\" placeholder=\"Password\" required\r\n               [(ngModel)]=\"loginObject.password\" name=\"password\"\r\n               #userPassword=\"ngModel\">\r\n        <div *ngIf=\"!userPassword.valid && userPassword.touched\" class=\"alert alert-danger\">\r\n          Password is required!\r\n        </div>\r\n        \r\n      \r\n      \r\n        <button (click)=\"signIn()\" class=\"btn btn-success m-1\"  [disabled]=\"!newUserForm.form.valid\">\r\n          Login\r\n        </button>\r\n      \r\n        \r\n      \r\n      </form>\r\n      ");
+/* harmony default export */ __webpack_exports__["default"] = ("\r\n\r\n<form *ngIf=\"employeeCustomerDisplay\" class=\"text-center\">\r\n  <button  mat-raised-button color=\"primary\"  (click)=\"employee()\">Employee</button>\r\n  <button  mat-raised-button color=\"accent\"  (click)=\"customer()\">Customer</button>\r\n  \r\n</form>\r\n<div *ngIf=\"errorMessage\" class=\"alert alert-danger\">\r\n  {{errorMessage}}\r\n</div>\r\n\r\n<form #newUserForm=\"ngForm\" *ngIf=\"loginFormDisplay\">      \r\n        <input type=\"email\" id=\"email\" placeholder=\"Email\"\r\n               required [(ngModel)]=\"loginObject.email\"\r\n               name=\"email\" #userEmail=\"ngModel\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$\">\r\n        <div *ngIf=\"!userEmail.valid && userEmail.touched\">\r\n        <div class=\"alert alert-danger\">\r\n          <p>Email is required!</p>\r\n          <p>A form with an email field that that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a \".\". After the \".\" sign, add at least 2 letters from a to z:</p>\r\n        </div></div>            \r\n        <input type=\"password\" id=\"password\" placeholder=\"Password\" required\r\n               [(ngModel)]=\"loginObject.password\" name=\"password\"\r\n               #userPassword=\"ngModel\">\r\n        <div *ngIf=\"!userPassword.valid && userPassword.touched\" class=\"alert alert-danger\">\r\n          Password is required!\r\n        </div>\r\n        \r\n      \r\n      \r\n        <button (click)=\"signIn()\" class=\"btn btn-success m-1\"  [disabled]=\"!newUserForm.form.valid\">\r\n          Login\r\n        </button>\r\n      \r\n        \r\n      \r\n      </form>\r\n      ");
 
 /***/ }),
 
@@ -471,14 +471,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
 /* harmony import */ var _services_cart_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/cart.service */ "./src/app/services/cart.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 
 
 let AppComponent = class AppComponent {
-    constructor(authService, cartService) {
+    constructor(authService, cartService, router) {
         this.authService = authService;
         this.cartService = cartService;
+        this.router = router;
         this.title = 'music-store-app';
         this.count = 0;
         this.carts = [];
@@ -490,7 +493,11 @@ let AppComponent = class AppComponent {
         return this.authService.isEmployee();
     }
     logOut() {
-        this.authService.logOutUser();
+        sessionStorage.removeItem('token');
+        this.authService.isLoggedIn = () => {
+            return false;
+        };
+        this.router.navigate(['/login']);
     }
     isLoggedIn() {
         return this.authService.isLoggedIn();
@@ -519,7 +526,8 @@ let AppComponent = class AppComponent {
 };
 AppComponent.ctorParameters = () => [
     { type: _services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] },
-    { type: _services_cart_service__WEBPACK_IMPORTED_MODULE_3__["CartService"] }
+    { type: _services_cart_service__WEBPACK_IMPORTED_MODULE_3__["CartService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -570,6 +578,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_thank_diaog_thank_diaog_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/thank-diaog/thank-diaog.component */ "./src/app/components/thank-diaog/thank-diaog.component.ts");
 /* harmony import */ var _guards_employee_guard__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./guards/employee.guard */ "./src/app/guards/employee.guard.ts");
 /* harmony import */ var _shared_alert_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./shared/alert.module */ "./src/app/shared/alert.module.ts");
+/* harmony import */ var _services_interceptor_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./services/interceptor.service */ "./src/app/services/interceptor.service.ts");
+
 
 
 
@@ -630,7 +640,11 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(appRoutes), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_19__["MatCardModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_20__["MatDialogModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__["BrowserAnimationsModule"]
         ],
-        providers: [_app_services_register_service__WEBPACK_IMPORTED_MODULE_14__["RegisterService"], _app_services_auth_service__WEBPACK_IMPORTED_MODULE_13__["AuthService"], _services_gadget_service__WEBPACK_IMPORTED_MODULE_16__["GadgetService"]],
+        providers: [_app_services_register_service__WEBPACK_IMPORTED_MODULE_14__["RegisterService"], _app_services_auth_service__WEBPACK_IMPORTED_MODULE_13__["AuthService"], _services_gadget_service__WEBPACK_IMPORTED_MODULE_16__["GadgetService"], {
+                provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
+                useClass: _services_interceptor_service__WEBPACK_IMPORTED_MODULE_27__["InterceptorService"],
+                multi: true
+            }],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
     })
 ], AppModule);
@@ -1052,30 +1066,69 @@ let LoginComponent = class LoginComponent {
         };
         this.errorMessage = "";
     }
+    // signIn() {
+    //   this.authService.signInUser(this.loginObject).subscribe((response) => {
+    //     console.log(response);
+    //     this.result = response;
+    //   this.options = {
+    //     autoClose: false,
+    //     keepAfterRouteChange: false
+    // };
+    //   alert('success')
+    // this.alertService.success('Success!!', this.options)
+    // alert("Token:" + this.result.token);
+    // if (this.result.success == true){
+    //   localStorage.setItem('token', this.result.token);
+    //   localStorage.setItem('_id',this.result._id);
+    //   this.router.navigate(['/'])
+    //     let id=localStorage.getItem('_id')
+    // this.registerService.getUserById(id).subscribe((response)=>{
+    // console.log(response);
+    // this.users=response;
+    // if(this.users.type==this.typeE){
+    //   this.authService.isLoggedIn=()=>{
+    //     return true;
+    //   };
+    //   localStorage.setItem('Employee',this.result.success);
+    // }
+    // else if(this.users.type==this.typeC){
+    //   this.authService.isLoggedIn=()=>{
+    //     return true;
+    //   };
+    // }
+    // else{
+    //   this.authService.isLoggedIn=()=>{
+    //     return false;
+    //   };
+    //   alert("you might be Customer please select correct option")
+    //   this.router.navigate(['/login'])
+    // }
+    // })
+    // }
+    //     else {
+    //        //this.errorMessage = "invalid username or password";
+    //        alert('Incorrect email or password')
+    //       this.router.navigate(['/login']);
+    //     }
+    //   })
+    // }
     signIn() {
         this.authService.signInUser(this.loginObject).subscribe((response) => {
-            console.log(response);
             this.result = response;
-            this.options = {
-                autoClose: false,
-                keepAfterRouteChange: false
-            };
-            alert('success');
-            this.alertService.success('Success!!', this.options);
-            // alert("Token:" + this.result.token);
-            if ((this.result.success == true)) {
-                localStorage.setItem('token', this.result.token);
-                localStorage.setItem('_id', this.result._id);
+            console.log(this.result);
+            if (this.result.success == true) {
+                sessionStorage.setItem('token', this.result.token);
+                sessionStorage.setItem('_id', this.result._id);
                 this.router.navigate(['/']);
-                let id = localStorage.getItem('_id');
+                let id = sessionStorage.getItem('_id');
                 this.registerService.getUserById(id).subscribe((response) => {
-                    // console.log(response);
+                    console.log(response);
                     this.users = response;
                     if (this.users.type == this.typeE) {
                         this.authService.isLoggedIn = () => {
                             return true;
                         };
-                        localStorage.setItem('Employee', this.result.success);
+                        sessionStorage.setItem('Employee', this.result.success);
                     }
                     else if (this.users.type == this.typeC) {
                         this.authService.isLoggedIn = () => {
@@ -1083,17 +1136,18 @@ let LoginComponent = class LoginComponent {
                         };
                     }
                     else {
+                        sessionStorage.removeItem('token');
+                        alert("you might be Customer please select correct option");
                         this.authService.isLoggedIn = () => {
                             return false;
                         };
-                        alert("you might be Customer please select correct option");
                         this.router.navigate(['/login']);
                     }
                 });
             }
             else {
-                this.errorMessage = "invalid username or password";
-                alert('Incorrect email or password');
+                this.errorMessage = this.result.message;
+                //alert('fail')
                 this.router.navigate(['/login']);
             }
         });
@@ -1608,27 +1662,22 @@ let AuthService = class AuthService {
     constructor(router, http) {
         this.router = router;
         this.http = http;
-        this.serviceUrl = "http://100.26.177.240:3004/api/auth/";
+        this.serviceUrl = "http://localhost:3004/api/auth/";
     }
     signInUser(loginInfo) {
         return this.http.post(this.serviceUrl, loginInfo);
     }
     loggedIn() {
-        return !!localStorage.getItem('token');
-    }
-    logOutUser() {
-        localStorage.removeItem('token');
-        window.localStorage.clear();
-        this.router.navigate(['/login']);
+        return !!sessionStorage.getItem('token');
     }
     isLoggedIn() {
-        if (localStorage.getItem('token') == null) {
+        if (sessionStorage.getItem('token') == null) {
             return false;
         }
         return true;
     }
     isEmployee() {
-        return localStorage.getItem('Employee');
+        return sessionStorage.getItem('Employee');
     }
 };
 AuthService.ctorParameters = () => [
@@ -1665,7 +1714,7 @@ let CartService = class CartService {
     constructor(http) {
         this.http = http;
         this.cart = [];
-        this.serviceUrl = "http://100.26.177.240:3004/api/cart/";
+        this.serviceUrl = "http://localhost:3004/api/cart/";
     }
     addCart(_id, name, type, colour, cost, poster, description, productCount) {
         let newCart = { _id: _id, name: name, type: type, colour: colour, cost: cost, poster: poster, description: description, productCount: productCount };
@@ -1717,7 +1766,7 @@ let GadgetService = class GadgetService {
     constructor(http) {
         this.http = http;
         this.gadgets = [];
-        this.serviceUrl = "http://100.26.177.240:3004/api/gadgets/";
+        this.serviceUrl = "http://localhost:3004/api/gadgets/";
     }
     getGadgets() {
         return this.http.get(this.serviceUrl);
@@ -1752,6 +1801,47 @@ GadgetService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/services/interceptor.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/interceptor.service.ts ***!
+  \*************************************************/
+/*! exports provided: InterceptorService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InterceptorService", function() { return InterceptorService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+
+
+
+
+let InterceptorService = class InterceptorService {
+    constructor() { }
+    handleError(error) {
+        let result = error.error;
+        alert(result.message);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+    }
+    intercept(req, next) {
+        return next.handle(req)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    }
+    ;
+};
+InterceptorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], InterceptorService);
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/register.service.ts":
 /*!**********************************************!*\
   !*** ./src/app/services/register.service.ts ***!
@@ -1771,7 +1861,7 @@ __webpack_require__.r(__webpack_exports__);
 let RegisterService = class RegisterService {
     constructor(http) {
         this.http = http;
-        this.serviceUrl = "http://100.26.177.240:3004/api/users/";
+        this.serviceUrl = "http://localhost:3004/api/users/";
     }
     getUserById(_id) {
         return this.http.get(this.serviceUrl + _id);

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { Cart } from './model/cart.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +17,21 @@ export class AppComponent {
   coins:any=0;
   payment:any;
   cash:any=0;
-  constructor(private authService:AuthService,private cartService:CartService){
+  constructor(private authService:AuthService,private cartService:CartService,private router:Router){
      
   }
   isEmployee(){
     return this.authService.isEmployee();
   }
   logOut(){
-    this.authService.logOutUser();
+    sessionStorage.removeItem('token');
+       
+  
+    
+    this.authService.isLoggedIn=()=>{
+      return false;
+    };
+    this.router.navigate(['/login'])
   }
   isLoggedIn() {
     return this.authService.isLoggedIn();

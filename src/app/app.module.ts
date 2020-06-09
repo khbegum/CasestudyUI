@@ -9,7 +9,7 @@ import { MusicGadgetsComponent } from './components/music-gadgets/music-gadgets.
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import {AuthService} from '../app/services/auth.service';
 import {RegisterService} from '../app/services/register.service'
 import { from } from 'rxjs';
@@ -25,6 +25,7 @@ import { MaterialModule } from './shared/material.module';
 import { ThankDiaogComponent } from './components/thank-diaog/thank-diaog.component';
 import { EmployeeGuard } from './guards/employee.guard';
 import { AlertModule } from './shared/alert.module';
+import { InterceptorService } from './services/interceptor.service';
 
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
@@ -56,7 +57,11 @@ const appRoutes:Routes=[
     BrowserModule,
     AppRoutingModule,RouterModule.forRoot(appRoutes),FormsModule,HttpClientModule,ReactiveFormsModule,MatCardModule,MatDialogModule, BrowserAnimationsModule
   ],
-  providers: [RegisterService,AuthService,GadgetService],
+  providers: [RegisterService,AuthService,GadgetService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
