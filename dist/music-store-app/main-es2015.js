@@ -1066,52 +1066,6 @@ let LoginComponent = class LoginComponent {
         };
         this.errorMessage = "";
     }
-    // signIn() {
-    //   this.authService.signInUser(this.loginObject).subscribe((response) => {
-    //     console.log(response);
-    //     this.result = response;
-    //   this.options = {
-    //     autoClose: false,
-    //     keepAfterRouteChange: false
-    // };
-    //   alert('success')
-    // this.alertService.success('Success!!', this.options)
-    // alert("Token:" + this.result.token);
-    // if (this.result.success == true){
-    //   localStorage.setItem('token', this.result.token);
-    //   localStorage.setItem('_id',this.result._id);
-    //   this.router.navigate(['/'])
-    //     let id=localStorage.getItem('_id')
-    // this.registerService.getUserById(id).subscribe((response)=>{
-    // console.log(response);
-    // this.users=response;
-    // if(this.users.type==this.typeE){
-    //   this.authService.isLoggedIn=()=>{
-    //     return true;
-    //   };
-    //   localStorage.setItem('Employee',this.result.success);
-    // }
-    // else if(this.users.type==this.typeC){
-    //   this.authService.isLoggedIn=()=>{
-    //     return true;
-    //   };
-    // }
-    // else{
-    //   this.authService.isLoggedIn=()=>{
-    //     return false;
-    //   };
-    //   alert("you might be Customer please select correct option")
-    //   this.router.navigate(['/login'])
-    // }
-    // })
-    // }
-    //     else {
-    //        //this.errorMessage = "invalid username or password";
-    //        alert('Incorrect email or password')
-    //       this.router.navigate(['/login']);
-    //     }
-    //   })
-    // }
     signIn() {
         this.authService.signInUser(this.loginObject).subscribe((response) => {
             this.result = response;
@@ -1823,7 +1777,9 @@ let InterceptorService = class InterceptorService {
     constructor() { }
     handleError(error) {
         let result = error.error;
-        alert(result.message);
+        if (error.status == 400) {
+            alert(result.message);
+        }
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
     }
     intercept(req, next) {

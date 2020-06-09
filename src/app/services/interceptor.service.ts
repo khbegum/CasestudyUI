@@ -12,7 +12,9 @@ export class InterceptorService implements HttpInterceptor{
  constructor() { }
  handleError(error: HttpErrorResponse){
    let result:any=error.error;
-  alert(result.message);
+  if(error.status==400){
+  alert(result.message);}
+  
   return throwError(error);
  }
 intercept(req: HttpRequest<any>, next: HttpHandler):
